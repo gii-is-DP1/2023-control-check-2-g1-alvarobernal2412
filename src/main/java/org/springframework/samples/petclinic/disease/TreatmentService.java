@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.disease;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class TreatmentService {
     private TreatmentRepository repo;
 
+    @Autowired
     public TreatmentService(TreatmentRepository tr){
         this.repo=tr;
     }
