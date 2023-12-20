@@ -5,7 +5,7 @@ import java.util.Set;
 import org.springframework.samples.petclinic.model.NamedEntity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Transient;
+import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -19,6 +19,7 @@ public class Treatment extends NamedEntity{
     @Min(1)
     @NotNull
     Integer dose;
-    @Transient
+    
+    @ManyToMany
     Set<Disease> recommendedFor;
 }

@@ -30,6 +30,7 @@ import org.springframework.samples.petclinic.vet.Vet;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -65,7 +66,7 @@ public class Visit extends BaseEntity {
 	@ManyToOne
 	Disease diagnose;
 	
-	@Transient
+	@ManyToMany()
 	Set<Symptom> symptoms;
 
 	
