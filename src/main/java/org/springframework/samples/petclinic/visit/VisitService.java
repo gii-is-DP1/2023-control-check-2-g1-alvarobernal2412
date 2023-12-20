@@ -12,7 +12,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.clinic.PricingPlan;
+import org.springframework.samples.petclinic.disease.Disease;
 import org.springframework.samples.petclinic.exceptions.ResourceNotFoundException;
+import org.springframework.samples.petclinic.pet.Pet;
+import org.springframework.samples.petclinic.pet.PetType;
+import org.springframework.samples.petclinic.pet.exceptions.DuplicatedPetNameException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,9 +54,14 @@ public class VisitService {
 		return visitRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Visit", "ID", id));
 	}
 
-	@Transactional
+	@Transactional(rollbackFor = UnfeasibleDiagnoseException.class)
 	public Visit save(Visit visit) throws DataAccessException,UnfeasibleDiagnoseException {
-		// TODO Change to implement exercise 8!
+		Pet p = visit.getPet();
+		Disease d = visit.getDiagnose();
+		PetType pt= p.getType();
+		if(!(d.getSusceptiblePetTypes().contains(pt))){
+			throw new UnfeasibleDiagnoseException();
+		}
 		return visitRepository.save(visit);
 	}
 
