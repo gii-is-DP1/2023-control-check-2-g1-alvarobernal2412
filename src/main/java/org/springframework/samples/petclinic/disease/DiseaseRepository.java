@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.samples.petclinic.pet.PetType;
 
 public interface DiseaseRepository extends CrudRepository<Disease, Integer> {
+    // @Query("SELECT d FROM Disease d JOIN Visit v WHERE :petTypes MEMBER OF d.susceptiblePetTypes AND (v.datetime >= :startDate) AND (v.datetime <= :endDate) AND (d.severity >= :diagnoses)")
     @Query("SELECT d FROM Disease d")
     Set<Disease> findEpidemicDiseases(@Param("petTypes") Set<PetType> petTypes,
                                         @Param("startDate") LocalDateTime startDate, 

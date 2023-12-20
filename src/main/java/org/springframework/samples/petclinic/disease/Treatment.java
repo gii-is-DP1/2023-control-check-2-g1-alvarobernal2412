@@ -2,15 +2,24 @@ package org.springframework.samples.petclinic.disease;
 
 import java.util.Set;
 
-import jakarta.persistence.Transient;
+import org.springframework.samples.petclinic.model.NamedEntity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class Treatment {
+@Entity
+public class Treatment extends NamedEntity{
     String description;
+    @Min(1)
+    @NotNull
     Integer dose;
-    @Transient
+    
+    @ManyToMany
     Set<Disease> recommendedFor;
 }

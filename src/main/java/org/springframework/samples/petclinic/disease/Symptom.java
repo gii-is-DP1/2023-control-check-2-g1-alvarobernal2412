@@ -2,18 +2,24 @@ package org.springframework.samples.petclinic.disease;
 
 import java.util.Set;
 
+import org.hibernate.annotations.ManyToAny;
+import org.springframework.samples.petclinic.model.NamedEntity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class Symptom {
+@Entity
+public class Symptom extends NamedEntity{
     String description;
     
-    @Transient
+    @ManyToMany
     Set<Disease> includes;
     
-    @Transient
+    @ManyToMany
     Set<Disease> excludes;
 }
